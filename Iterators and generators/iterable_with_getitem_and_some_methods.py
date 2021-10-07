@@ -29,8 +29,8 @@ class MyList(object):
                 value: Any,
                 prev_node: object = None,
                 next_node: object = None) -> None:
-            self.value = value
-            self.prev = prev_node
+            self.value: Any = value
+            self.prev: object = prev_node
             self.next = next_node
 
         def __repr__(self):
@@ -118,7 +118,7 @@ class MyList(object):
     def insert(self,
                index: int,
                element: object) -> None:
-        if  index < 0:
+        if index < 0:
             raise ValueError('List index cannot be negative.')
 
         new_node = MyList._ListNode(element)
@@ -163,55 +163,55 @@ class MyList(object):
 
 
 def test_my_list():
-    start: int = -30
+    start: int = 0
     end: int = 30
     try:
         my_list_test: MyList = MyList(list([i for i in range(start, end)]))
-        std_list: List = [i for i in range(start, end)]
+        std_list: List[int] = [i for i in range(start, end)]
         print(my_list_test)
         print(std_list)
 
         for i in range(start, end):
-            assert my_list_test.__getitem__(i) == list.__getitem__(i)
+            assert my_list_test.__getitem__(i) == std_list[i]
     except AssertionError as e:
         print(e)
 
 
 def main():
     test_my_list()
-    # # Создание списка
-    # my_list = MyList([0, 1, 2, 3, 4, 5])
-    #
-    # # Вывод длины списка
-    # print(len(my_list))
-    #
-    # # Вывод самого списка
-    # print(my_list)
-    #
-    # print()
-    #
-    # my_list.insert(11, 77)
-    # # my_list.insert(element=77, index=0)
-    #
-    # print('List after inserted an element.')
-    # print(my_list)
-    #
-    # my_list.del_item(len(my_list) - 1)
-    # print('List after deleted the last element.')
-    # print(my_list)
-    #
-    # my_list.del_item(0)
-    # print('List after deleted the first element.')
-    # print(my_list)
-    #
-    # # Повторный обход списка
-    # for element in my_list:
-    #     print(element)
-    #
-    # print('Clear my list.')
-    # my_list.clear()
-    # for element in my_list:
-    #     print(element)
+    # Создание списка
+    my_list = MyList([0, 1, 2, 3, 4, 5])
+
+    # Вывод длины списка
+    print(len(my_list))
+
+    # Вывод самого списка
+    print(my_list)
+
+    print()
+
+    my_list.insert(11, 77)
+    # my_list.insert(element=77, index=0)
+
+    print('List after inserted an element.')
+    print(my_list)
+
+    my_list.del_item(len(my_list) - 1)
+    print('List after deleted the last element.')
+    print(my_list)
+
+    my_list.del_item(0)
+    print('List after deleted the first element.')
+    print(my_list)
+
+    # Повторный обход списка
+    for element in my_list:
+        print(element)
+
+    print('Clear my list.')
+    my_list.clear()
+    for element in my_list:
+        print(element)
 
 
 if __name__ == '__main__':
