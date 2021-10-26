@@ -8,18 +8,9 @@ from typing import Optional, Dict
 import validators
 
 
-class MyLink:
-	class SETTINGS:
-		LENGTH_LINK: int = 4
-		DOMAIN: str = 'https://lk.tr/'
-
-	def __init__(self):
-		# todo: надо продумать передалть на класс
-		pass
-
-	def add(self, key, value):
-		# todo: переписать на класс
-		pass
+class SETTINGS:
+	LENGTH_LINK: int = 4
+	DOMAIN: str = 'https://lk.tr/'
 
 
 def get_long_link() -> Optional[str]:
@@ -37,15 +28,25 @@ def get_random_string(length: int) -> str:
 
 
 def print_menu():
-	print('''Select a menu item:
-			1. Input full link.
-			2. Input long link. 
-			3. Show all links.
-			4. Exit.''')
+	print('Select a menu item:\n'
+		  '	1. Input full link.\n'
+		  '	2. Input short link. \n'
+		  '	3. Show all links.\n'
+		  '	4. Exit.')
 
 
-def show_all_links():
-	pass
+def show_all_links(links: Dict[str, str], domain: str):
+	for key in links:
+		print(f'Long link: {links[key]}\n Short link: {domain + key}')
+
+
+def get_short_link(links: Dict[str, str], domain: str):
+	url: str = input('Input short link:')
+	if validators.url(url):
+		key: str = url.removeprefix(domain)
+		print(f'The long link is {links[key]}') if key in links else print(f'The short link {url} not found.')
+	else:
+		print('The link is wrong.')
 
 
 def main():
@@ -62,9 +63,9 @@ def main():
 				links[key] = long_link
 				print(links)
 		elif item_menu == '2':
-			get_short_link()
+			get_short_link(links, SETTINGS.DOMAIN)
 		elif item_menu == '3':
-			show_all_links()
+			show_all_links(links, SETTINGS.DOMAIN)
 		elif item_menu == '4':
 			break
 		else:
